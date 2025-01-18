@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { countriesApi } from "@/app/services/api";
 
@@ -30,6 +31,14 @@ const CardList = () => {
     fetchCountries();
   }, []);
 
+  if (pending) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    );
+  }
+
   if (errorMessage) {
     return (
       <div className="flex flex-col items-center justify-center h-64 gap-4">
@@ -49,14 +58,12 @@ const CardList = () => {
     );
   }
 
-  return pending ? (
-    <div className="flex items-center justify-center h-64">
-      <p className="text-gray-600">Loading...</p>
-    </div>
-  ) : (
+  return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {countries.map((country, index) => (
-        <Card key={country.cca3} country={country} index={index} />
+        <Link href={`/country/${country.cca3}`} key={country.cca3}>
+          <Card country={country} index={index} />
+        </Link>
       ))}
     </div>
   );
