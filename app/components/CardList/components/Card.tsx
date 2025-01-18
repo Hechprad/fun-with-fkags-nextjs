@@ -19,7 +19,7 @@ const Card = ({
           className="w-full h-full object-cover"
           height={250}
           priority={index < 12}
-          src={flags.svg ?? "https://placehold.co/600X400"}
+          src={flags.svg ?? "/default-flag-600x400.svg"}
           width={400}
         />
       </div>
