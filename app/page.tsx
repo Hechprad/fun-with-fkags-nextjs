@@ -1,10 +1,12 @@
-import { Footer, Header } from "./components";
+import { CardList, Footer, Header } from "./components";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex-1">main</main>
+      <main className="flex-1">
+        <CardList />
+      </main>
       <Footer />
     </>
   );
