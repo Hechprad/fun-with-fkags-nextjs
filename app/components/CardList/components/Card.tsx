@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Country } from "../types";
+import { Country } from "@/app/services/countries/types";
 
 type CardProps = {
   country: Country;
@@ -27,16 +27,14 @@ const Card = ({
         <h2 className="text-xl font-semibold mb-4">{name.common}</h2>
         <div className="space-y-2">
           <div className="flex - items-center gap-1">
-            <span className="font-semibold">Capital:</span>
-            <span>{capital?.[0] ?? "not found"}</span>
+            <span className="font-semibold">Capital:</span>{" "}
+            {capital?.[0] ?? "not found"}
           </div>
           <div className="flex - items-center gap-1">
-            <span className="font-semibold">Region:</span>
-            <span>{region}</span>
+            <span className="font-semibold">Region:</span> {region}
           </div>
           <div className="flex - items-center gap-1">
-            <span className="font-semibold">Population:</span>
-            <span>{population}</span>
+            <span className="font-semibold">Population:</span> {population}
           </div>
         </div>
       </div>

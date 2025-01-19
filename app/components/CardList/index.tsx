@@ -3,18 +3,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { countriesApi } from "@/app/services/api";
+import { countriesApi } from "@/app/services/countries";
+import { Country } from "@/app/services/countries/types";
 
 import Card from "./components/Card";
 
-import * as t from "./types";
-
 const CardList = () => {
-  const [countries, setCountries] = useState<Array<t.Country>>([]);
+  const [countries, setCountries] = useState<Array<Country>>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [pending, setIsPending] = useState<boolean>(true);
 
-  const fetchCountries = async (): Promise<Array<t.Country> | undefined> => {
+  const fetchCountries = async (): Promise<Array<Country> | undefined> => {
     const [response, error] = await countriesApi.getAll();
 
     setIsPending(false);
@@ -24,7 +23,7 @@ const CardList = () => {
       return;
     }
 
-    setCountries(response as unknown as Array<t.Country>);
+    setCountries(response as unknown as Array<Country>);
   };
 
   useEffect(() => {
@@ -51,6 +50,7 @@ const CardList = () => {
             fetchCountries();
           }}
           disabled={pending}
+          type="button"
         >
           try again
         </button>
