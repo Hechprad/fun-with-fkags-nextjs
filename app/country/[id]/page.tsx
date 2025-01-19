@@ -5,22 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import { countriesApi } from "@/app/services/api";
+import { countriesApi } from "@/app/services/countries";
+import { DetailedCountry } from "@/app/services/countries/types";
 
 import * as t from "./types";
-
-const baseItemsCSS = "flex items-start gap-1";
 
 export default function Country() {
   const params = useParams<t.Params>();
 
-  const [country, setCountry] = useState<t.DetailedCountry | null>(null);
+  const [country, setCountry] = useState<DetailedCountry | null>(null);
   const [id, setId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [pending, setIsPending] = useState<boolean>(true);
 
   const fetchCountries = useCallback(async (): Promise<
-    t.DetailedCountry | undefined
+    DetailedCountry | undefined
   > => {
     const [response, error] = await countriesApi.getCountry(id);
 
@@ -31,7 +30,7 @@ export default function Country() {
       return;
     }
 
-    setCountry(response as unknown as t.DetailedCountry);
+    setCountry(response as unknown as DetailedCountry);
   }, [id]);
 
   useEffect(() => {
@@ -66,6 +65,7 @@ export default function Country() {
             fetchCountries();
           }}
           disabled={pending}
+          type="button"
         >
           try again
         </button>
@@ -77,16 +77,19 @@ export default function Country() {
     <>
       <div className="mb-8">
         <Link href="/">
-          <button className="bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded">
+          <button
+            className="bg-gray-200 hover:bg-gray-300 font-semibold py-2 px-4 rounded"
+            type="button"
+          >
             Go Back
           </button>
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-4">
-        <div className="w-full md:max-w-[400px]">
+        <div className="flex items-center md:max-w-[400px]">
           <Image
             alt={`${country.name.common ?? "not found"} flag`}
-            className="w-full h-full object-cover"
+            className="rounded-lg"
             height={250}
             priority
             src={country.flags.svg ?? "/default-flag-600x400.svg"}
@@ -98,44 +101,46 @@ export default function Country() {
             {country.name.common} ({id})
           </h2>
           <div className="space-y-2">
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Capital:</span>
-              <span>{country.capital?.[0] ?? "not found"}</span>
+            <div>
+              <span className="font-semibold">Capital:</span>{" "}
+              {country.capital?.[0] ?? "not found"}
             </div>
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Region:</span>
-              <span>{country.region}</span>
+            <div>
+              <span className="font-semibold">Region:</span> {country.region}
             </div>
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Population:</span>
-              <span>{country.population}</span>
+            <div>
+              <span className="font-semibold">Population:</span>{" "}
+              {country.population}
             </div>
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Languages:</span>
-              <span>{Object.values(country.languages).join(", ")}</span>
+            <div>
+              <span className="font-semibold">Languages:</span>{" "}
+              {Object.values(country.languages ?? {}).join(", ")}
             </div>
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Currencies:</span>
-              <span>
-                {Object.values(country.currencies)
-                  .map(({ name, symbol }) => `${name} - (${symbol})`)
-                  .join(", ")}
-              </span>
+            <div>
+              <span className="font-semibold">Currencies:</span>{" "}
+              {Object.values(country.currencies ?? {})
+                .map(({ name, symbol }) => `${name} (${symbol})`)
+                .join(", ")}
             </div>
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Top Level Domain:</span>
-              <span>{country.tld.join(", ")}</span>
+            <div>
+              <span className="font-semibold">Top Level Domain:</span>{" "}
+              {country.tld.join(", ")}
             </div>
-            <div className={baseItemsCSS}>
-              <span className="font-semibold">Borders:</span>
-              <div className="flex flex-wrap gap-1">
-                {country.borders.map((item) => (
-                  <Link href={`/country/${item}`} key={item}>
-                    <div className="bg-gray-200 p-1 rounded">
-                      <span>{item}</span>
-                    </div>
-                  </Link>
-                ))}
+            <div>
+              <div className="md:max-w-80 flex flex-wrap gap-1 font-semibold">
+                <span className="font-semibold">Borders:</span>
+                {country.borders.length
+                  ? country.borders.map((item) => (
+                      <Link href={`/country/${item}`} key={item}>
+                        <button
+                          className="bg-gray-200 hover:bg-gray-300 p-1 rounded text-xs font-normal"
+                          type="button"
+                        >
+                          {item}
+                        </button>
+                      </Link>
+                    ))
+                  : "None"}
               </div>
             </div>
           </div>
