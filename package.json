@@ -1,6 +1,28 @@
 {
   "name": "fun-with-flags-nextjs",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jorge Hecherat"
+  },
+  "contributors": [
+    {
+      "name": "Jorge Hecherat"
+    }
+  ],
+  "homepage": "https://fun-with-flags-nextjs.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hechprad/fun-with-flags-nextjs.git"
+  },
+  "keywords": [
+    "frontend",
+    "jorge hecherat",
+    "next",
+    "nextjs",
+    "react",
+    "tailwind",
+    "typescript"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

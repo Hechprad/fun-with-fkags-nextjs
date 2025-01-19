@@ -21,7 +21,7 @@ Access the live application here: [Fun With Flags](https://fun-with-flags-nextjs
 - [x] List of all countries.
 - [x] Displays country flags, names, regions, populations and capitals.
 - [x] Responsive design for mobile and desktop users.
-- [ ] Search and filter functionality (optional).
+- [ ] Search and filter functionality.
 
 ---
 
