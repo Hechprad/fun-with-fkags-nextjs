@@ -2,11 +2,13 @@
   "name": "fun-with-flags-nextjs",
   "version": "1.0.0",
   "author": {
-    "name": "Jorge Hecherat"
+    "name": "Jorge Hecherat",
+    "email": "hecherat@gmail.com"
   },
   "contributors": [
     {
-      "name": "Jorge Hecherat"
+      "name": "Jorge Hecherat",
+      "email": "hecherat@gmail.com"
     }
   ],
   "homepage": "https://fun-with-flags-nextjs.vercel.app/",
